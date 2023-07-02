@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const studentInformation = sequelize.define(
-    "studentInformation",
+  const StudentInformation = sequelize.define(
+    "StudentInformation",
     {
       name: {
         type: DataTypes.STRING,
@@ -14,8 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       underscored: true,
+      timestamps: false,
     }
   );
 
-  return studentInformation;
+  return StudentInformation;
 };
