@@ -1,20 +1,24 @@
 const { StudentInformation } = require("../models");
-exports.getAllStudent = (req, res, next) => {
-  StudentInformation.findAll()
-    .then((rs) => {
-      res.json(rs);
-    })
-    .catch(next);
+exports.getAllStudent = async (req, res, next) => {
+  try {
+    const students = await StudentInformation.findAll();
+    res.json(students);
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
-// const { studentInformation } = require("../models");
-
-// exports.getAllStudents = async (req, res, next) => {
-//   try {
-//     const students = await studentInformation.findAll();
-//     res.json(students);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: "Internal Server Error" });
-//   }
-// };
+exports.createStudent = async (req, res, next) => {
+  try {
+    const { name, age, university } = req.body;
+    const result = await StudentInformation.create({
+      name: name,
+      age: age,
+      university: university,
+    });
+    res.status(201).json({ message: "Success", result });
+  } catch (error) {
+    console.log("Not complete");
+    next(error);
+  }
+};
