@@ -22,3 +22,14 @@ exports.createStudent = async (req, res, next) => {
     next(error);
   }
 };
+exports.deleteStudent = (req, res, next) => {
+  const { id } = req.params;
+  Product.destroy({
+    attributes: ["name", "age", "university"],
+    where: { id: id },
+  })
+    .then((rs) => {
+      res.json(rs);
+    })
+    .catch(next);
+};
