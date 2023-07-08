@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.get("/student", student.getAllStudent);
 router.post("/createstudent", student.createStudent);
-// router.get("/:id", student.getProductById);
 router.put("/updatestudent", student.updateStudent);
+router.delete("/deletestudent/:id", student.deleteStudent);
 module.exports = router;

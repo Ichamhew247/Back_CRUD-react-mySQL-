@@ -36,14 +36,37 @@ exports.updateStudent = (req, res) => {
     });
 };
 
-exports.getProductById = (req, res, next) => {
-  const { id } = req.params;
-  Product.findOne({
+exports.deleteStudent = (req, res) => {
+  const id = req.params.id;
+  StudentInformation.destroy({
     attributes: ["name", "age", "university"],
     where: { id: id },
   })
-    .then((rs) => {
-      res.json(rs);
+    .then((result) => {
+      res.json(result);
     })
-    .catch(next);
+    .catch((error) => {
+      res.status(500).send("ไม่สามารถลบนักเรียนได้");
+    });
 };
+// exports.deleteStudent = (req, res) => {
+//   const id = req.params.id;
+//   StudentInformation.destroy({ where: { id: id } })
+//     .then((result) => {
+//       res.json(result);
+//     })
+//     .catch((error) => {
+//       res.status(500).send("ไม่สามารถลบนักเรียนได้");
+//     });
+// };
+
+// exports.deleteStudent = (req, res) => {
+//   const id = req.params.id;
+//   StudentInformation.destroy({ where: { id: id } })
+//     .then((result) => {
+//       res.json(result);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ message: "ไม่สามารถลบนักเรียนได้" });
+//     });
+// };
