@@ -1,10 +1,11 @@
 const { StudentInformation } = require("../models");
+
 exports.getAllStudent = async (req, res, next) => {
   try {
     const students = await StudentInformation.findAll();
     res.json(students);
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "หานักเรียนไม่เจอ 500" });
   }
 };
 
@@ -22,9 +23,22 @@ exports.createStudent = async (req, res, next) => {
     next(error);
   }
 };
-exports.deleteStudent = (req, res, next) => {
+
+exports.updateStudent = (req, res) => {
+  const id = req.body.id;
+  const university = req.body.university;
+  StudentInformation.update({ university: university }, { where: { id: id } })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "ไม่สามารถอัปเดตนักเรียนได้" });
+    });
+};
+
+exports.getProductById = (req, res, next) => {
   const { id } = req.params;
-  Product.destroy({
+  Product.findOne({
     attributes: ["name", "age", "university"],
     where: { id: id },
   })

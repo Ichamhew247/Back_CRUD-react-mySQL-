@@ -7,7 +7,7 @@ sequelize
       {
         id: 1,
         name: "Mew",
-        age: "24",
+        age: "56",
         university: "TU",
       },
     ]);
